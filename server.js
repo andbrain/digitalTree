@@ -20,8 +20,8 @@ server.use(restify.bodyParser({
     mapParams: false
 }));
 
-// addon.start();
-global.addon = addon;
+//initialize addon
+addon.create();
 
 module.exports = server;
 require('./routes');

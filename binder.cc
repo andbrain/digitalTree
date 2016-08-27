@@ -3,14 +3,20 @@
 #include <vector>
 #include <engine.h>
 
+static Engine eng;
+
 std::vector<int> ProcessQuery(std::string query)
 {
   std::vector<int> vec;
 
-  Engine eng;
   vec = eng.process(query);
-  
+
   return vec;
+}
+
+void Initializer()
+{
+  eng.init();
 }
 
 namespace demo {
@@ -27,10 +33,7 @@ namespace demo {
 
   void Create(const FunctionCallbackInfo<Value>& args) {
     std::cout << "Entering in create bind method!" << std::endl;
-    args.GetReturnValue();
-  }
-
-  void Close(const FunctionCallbackInfo<Value>& args) {
+    Initializer();
     args.GetReturnValue();
   }
 
