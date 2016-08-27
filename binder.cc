@@ -1,15 +1,15 @@
 #include <node.h>
 #include <iostream>
+#include <vector>
+#include <engine.h>
 
-std::vector<int> Process(string query)
+std::vector<int> ProcessQuery(std::string query)
 {
-  std::cout << "Query: " << query << endl;
-  process();
-
   std::vector<int> vec;
-  vec.push_back(12);
-  vec.push_back(20);
 
+  Engine eng;
+  vec = eng.process(query);
+  
   return vec;
 }
 
@@ -26,6 +26,7 @@ namespace demo {
   using v8::Exception;
 
   void Create(const FunctionCallbackInfo<Value>& args) {
+    std::cout << "Entering in create bind method!" << std::endl;
     args.GetReturnValue();
   }
 
@@ -46,7 +47,7 @@ namespace demo {
     v8::String::Utf8Value nameFromArgs(args[0]->ToString());
     std::string query = std::string(*nameFromArgs);
 
-    std::vector<int> vec = Process(query);
+    std::vector<int> vec = ProcessQuery(query);
 
     // Pack std::vector into a JS array
     Local<Array> result = Array::New(isolate);
@@ -59,9 +60,8 @@ namespace demo {
   }
 
   void init(Local<Object> exports) {
-    NODE_SET_METHOD(exports, "init", Create);
+    NODE_SET_METHOD(exports, "create", Create);
     NODE_SET_METHOD(exports, "process", Process);
-    NODE_SET_METHOD(exports, "close", Close);
   }
 
   NODE_MODULE(addon, init)
