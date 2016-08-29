@@ -21,7 +21,7 @@ server.use(restify.bodyParser({
 }));
 
 //initialize addon
-addon.create();
+addon.create("dataset/paises");
 
 module.exports = server;
 require('./routes');

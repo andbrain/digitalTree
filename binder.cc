@@ -5,21 +5,21 @@
 
 static Engine eng;
 
-std::vector<int> ProcessQuery(std::string query)
+std::vector<int> ProcessQuery(std::string query, int qtd)
 {
   std::vector<int> vec;
 
-  vec = eng.process(query);
+  vec = eng.process(query, qtd);
 
   return vec;
 }
 
-void Initializer()
+void Initializer(string filepath)
 {
-  eng.init("dataset/paises");
+  eng.init(filepath);
 }
 
-namespace demo {
+namespace nodeNM {
   using v8::FunctionCallbackInfo;
   using v8::Isolate;
   using v8::Local;
@@ -32,8 +32,16 @@ namespace demo {
   using v8::Exception;
 
   void Create(const FunctionCallbackInfo<Value>& args) {
-    std::cout << "Entering in create bind method!" << std::endl;
-    Initializer();
+    Isolate* isolate = args.GetIsolate();
+
+    // Make sure there is an argument
+    if(args.Length() != 1){
+      isolate->ThrowException(Exception::TypeError(String::NewFromUtf8(isolate, "Need an argument!")));
+      return;
+    }
+    v8::String::Utf8Value nameFromArgs(args[0]->ToString());
+    std::string basefile = std::string(*nameFromArgs);
+    Initializer(basefile);
     args.GetReturnValue();
   }
 
@@ -41,7 +49,7 @@ namespace demo {
     Isolate* isolate = args.GetIsolate();
     
     // Make sure there is an argument
-    if(args.Length() != 1){
+    if(args.Length() != 2){
       isolate->ThrowException(Exception::TypeError(String::NewFromUtf8(isolate, "Need an argument!")));
       return;
     }
@@ -50,7 +58,9 @@ namespace demo {
     v8::String::Utf8Value nameFromArgs(args[0]->ToString());
     std::string query = std::string(*nameFromArgs);
 
-    std::vector<int> vec = ProcessQuery(query);
+    int qtd = args[1]->IsUndefined() ? 0 : args[1]->Int32Value();
+
+    std::vector<int> vec = ProcessQuery(query, qtd);
 
     // Pack std::vector into a JS array
     Local<Array> result = Array::New(isolate);

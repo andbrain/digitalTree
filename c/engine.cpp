@@ -18,10 +18,10 @@ void Engine::init(string filepath)
 	t->Init(filepath);
 }
 
-vector<int> Engine::process(string query)
+vector<int> Engine::process(string query,  int qtd_result)
 {
 	std::vector<int> vec;
-	vec = t->Search("A", 5);
+	vec = t->Search(query, qtd_result);
 
 	return vec;
 }

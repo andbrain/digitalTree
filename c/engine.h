@@ -13,7 +13,7 @@ public:
 	Engine();
 	~Engine();
 	void init(string filepath);
-	vector<int> process(string query);
+	vector<int> process(string query, int qtd_result);
 
 private:
 	Trie *t;
