@@ -16,7 +16,7 @@ std::vector<int> ProcessQuery(std::string query)
 
 void Initializer()
 {
-  eng.init();
+  eng.init("dataset/paises");
 }
 
 namespace demo {

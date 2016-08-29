@@ -3,26 +3,25 @@
 Engine::Engine()
 {
 	cout << "Starting engine.." << endl;
+	t = new Trie();
 }
 
 Engine::~Engine()
 {
 	cout << "Ending engine.." << endl;
+	delete t;
 }
 
-void Engine::init()
+void Engine::init(string filepath)
 {
 	cout << "Initializing engine.." << endl;
+	t->Init(filepath);
 }
 
 vector<int> Engine::process(string query)
 {
-	cout << "processing..." << endl;
-  	cout << "query: " << query << endl;
-
 	std::vector<int> vec;
- 	vec.push_back(12);
-  	vec.push_back(20);
+	vec = t->Search("A", 5);
 
 	return vec;
 }

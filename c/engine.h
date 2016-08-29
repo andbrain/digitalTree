@@ -3,6 +3,7 @@
 
 #include <iostream>
 #include <vector>
+#include "trie.h"
 
 using namespace std;
 
@@ -11,10 +12,11 @@ class Engine
 public:
 	Engine();
 	~Engine();
-	void init();
+	void init(string filepath);
 	vector<int> process(string query);
 
 private:
+	Trie *t;
 };
 
 #endif
