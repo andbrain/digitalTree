@@ -14,9 +14,12 @@ npm install
 # How to use
 
 * Run service
-> node .
+```
+node .
+```
+
 * Call routes
-	- Example with query = **a** and quantity result number = **5**
+	- Example with query = **a** and quantity response number = **5**
 	```
 	curl localhost:3000/api/search?q=a\&qtd=5
 	```
