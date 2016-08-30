@@ -2,12 +2,23 @@
 Digital Tree as service of autocomplete, reading sample base of countries
 
 #Installation
-	* Install node packages
-		> npm install
+
+* Install node-gyp
+	> npm install -g node-gyp
+* Install node packages
+	> npm install
 
 # How to use
-	* Run service
-		> node .
-	* Call routes
-		- Example with query = _a_ and quantity result number = _5_
-			> curl localhost:3000/api/search?q=a\&qtd=5
+
+* Run service
+	> node .
+* Call routes
+	- Example with query = **a** and quantity result number = **5**
+		> curl localhost:3000/api/search?q=a\&qtd=5
+
+# Recommended version
+
+* npm version = 3.8.6
+* node version = 5.11.0
+* node-gyp version = 3.4.0
+* g++ version = 5.4.0
