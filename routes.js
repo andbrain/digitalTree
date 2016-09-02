@@ -12,3 +12,5 @@ var PATH = prefix + resource;
 
 server.get({path: PATH, version: VERSION}, resources.search.list);
 server.post({path: PATH, version: VERSION}, resources.search.add);
+server.put({path: PATH, version: VERSION}, resources.search.update);
+server.del({path: PATH, version: VERSION}, resources.search.remove);

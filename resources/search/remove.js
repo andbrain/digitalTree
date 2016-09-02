@@ -8,8 +8,6 @@ function checkParams (query) {
 	if(query){
 		if(!query.id)
 			return ({code: 0, message: "no element id to insert!"});	
-		if(!query.element)
-			return ({code: 0, message: "no element to insert!"});	
 	}
 	else
 		return ({code: 0, message: "no element to insert!"});
@@ -18,7 +16,7 @@ function checkParams (query) {
 	return query;
 }
 
-module.exports = function add(req, res, next) {
+module.exports = function del(req, res, next) {
 	var query = checkParams(req.body);
 
 	if(!query.code){
@@ -26,7 +24,7 @@ module.exports = function add(req, res, next) {
 		return next();
 	}
 	//TODO see how to sync response of insert with response of request
-	var result = addon.insert(query.id, query.element);
+	var result = addon.remove(query.id);
 
 	res.send({status: "success", result: result});
 	return next();

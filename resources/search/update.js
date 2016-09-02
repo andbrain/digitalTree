@@ -18,7 +18,7 @@ function checkParams (query) {
 	return query;
 }
 
-module.exports = function add(req, res, next) {
+module.exports = function update(req, res, next) {
 	var query = checkParams(req.body);
 
 	if(!query.code){
@@ -26,7 +26,7 @@ module.exports = function add(req, res, next) {
 		return next();
 	}
 	//TODO see how to sync response of insert with response of request
-	var result = addon.insert(query.id, query.element);
+	var result = addon.update(query.id, query.element);
 
 	res.send({status: "success", result: result});
 	return next();

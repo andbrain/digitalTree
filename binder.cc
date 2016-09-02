@@ -5,6 +5,16 @@
 
 static Engine eng;
 
+bool removeElement(int id)
+{
+  return eng.remove(id);
+}
+
+bool updateElement(int id, std::string element)
+{
+  return eng.update(id, element);
+}
+
 bool insertElement(int id, std::string element)
 {
   return eng.insert(id, element);
@@ -27,6 +37,50 @@ void Initializer(string filepath)
 namespace nodeNM {
   using namespace v8;
   
+  void Remove(const FunctionCallbackInfo<Value>& args) {
+    Isolate* isolate = args.GetIsolate();
+
+    // Make sure there is an argument
+    if(args.Length() != 1){
+      isolate->ThrowException(Exception::TypeError(String::NewFromUtf8(isolate, "Need an argument!")));
+      return;
+    }
+
+    if( args[0]->IsUndefined()){
+      isolate->ThrowException(Exception::TypeError(String::NewFromUtf8(isolate, "Need an argument!")));
+      return;
+    } 
+
+    int id = args[0]->NumberValue();
+    bool result = removeElement(id);
+
+    Local<Boolean> res = Boolean::New(isolate, result);
+    args.GetReturnValue().Set(res);
+  }
+
+  void Update(const FunctionCallbackInfo<Value>& args) {
+    Isolate* isolate = args.GetIsolate();
+
+    // Make sure there is an argument
+    if(args.Length() != 2){
+      isolate->ThrowException(Exception::TypeError(String::NewFromUtf8(isolate, "Need an argument!")));
+      return;
+    }
+
+    if( args[0]->IsUndefined()){
+      isolate->ThrowException(Exception::TypeError(String::NewFromUtf8(isolate, "Need an argument!")));
+      return;
+    } 
+
+    int id = args[0]->NumberValue();
+    v8::String::Utf8Value nameFromArgs(args[1]->ToString());
+    std::string element = std::string(*nameFromArgs);
+    bool result = updateElement(id, element);
+
+    Local<Boolean> res = Boolean::New(isolate, result);
+    args.GetReturnValue().Set(res);
+  }
+
   void Insert(const FunctionCallbackInfo<Value>& args) {
     Isolate* isolate = args.GetIsolate();
 
@@ -45,9 +99,8 @@ namespace nodeNM {
     v8::String::Utf8Value nameFromArgs(args[1]->ToString());
     std::string element = std::string(*nameFromArgs);
     bool result = insertElement(id, element);
-    std::cout << "Result of insert:" << result << std::endl;
 
-    Local<Boolean> res = Boolean::New(isolate, !result);
+    Local<Boolean> res = Boolean::New(isolate, result);
     args.GetReturnValue().Set(res);
   }
 
@@ -98,6 +151,8 @@ namespace nodeNM {
     NODE_SET_METHOD(exports, "create", Create);
     NODE_SET_METHOD(exports, "process", Process);
     NODE_SET_METHOD(exports, "insert", Insert);
+    NODE_SET_METHOD(exports, "update", Update);
+    NODE_SET_METHOD(exports, "remove", Remove);
   }
 
   NODE_MODULE(addon, init)

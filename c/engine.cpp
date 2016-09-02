@@ -30,3 +30,13 @@ bool Engine::insert(int id, string element)
 {
 	return t->InsertElement(id,element);
 }
+
+bool Engine::update(int id, string element)
+{
+	return t->UpdateElement(id,element);
+}
+
+bool Engine::remove(int id)
+{
+	return t->RemoveElement(id);
+}
