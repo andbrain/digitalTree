@@ -2,7 +2,7 @@
 #define NODES_H
 
 #include <iostream>
-#include <unordered_map>
+#include <map>
 
 using namespace std;
 
@@ -26,7 +26,7 @@ struct nodePoint
 {
     bool is_end;
     unsigned int count_prefix_element;
-    unordered_map<int, nodePoint*> child;
+    map<int, nodePoint*> child;
 };
 
 #endif

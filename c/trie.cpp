@@ -202,7 +202,7 @@ void Trie::interator_trie(nodePoint *current, bool is_prefix)
 	// funciona apenas se a consulta possui mais de uma palavra ou uma palavra completa que termine com espaço
     if(is_prefix == true)
     {
-        for (unordered_map<int, nodePoint*>::iterator i = current->child.begin(); i != current->child.end(); ++i)
+        for (map<int, nodePoint*>::iterator i = current->child.begin(); i != current->child.end(); ++i)
         {
 			if(current->child[i->first] != NULL)
 			{

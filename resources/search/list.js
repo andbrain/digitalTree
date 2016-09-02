@@ -21,7 +21,7 @@ module.exports = function list(req, res, next) {
 	var query = checkParams(req.query);
 
 	if(!query.code){
-		res.send({code: "fail", message: query.message});
+		res.send({code: "error", message: query.message});
 		return next();
 	}
 

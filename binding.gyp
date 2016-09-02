@@ -2,7 +2,7 @@
   "targets": [
     {
     	"target_name": "addon",
-      "cflags": ["-std=c++11"],
+      "cflags": ["-std=gnu++11"],
     	"sources": [ 
     		"binder.cc",
         "c/engine.cpp",

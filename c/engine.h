@@ -14,7 +14,7 @@ public:
 	~Engine();
 	void init(string filepath);
 	vector<int> process(string query, int qtd_result);
-
+	bool insert(int id, string element);
 private:
 	Trie *t;
 };

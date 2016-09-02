@@ -10,7 +10,7 @@ Util::~Util()
 	
 }
 
-void Util::make_index_letter(unordered_map<int, int>* index_letter)
+void Util::make_index_letter(map<int, int>* index_letter)
 {
     index_letter->insert(pair<int,int>(65,1));		//A
     index_letter->insert(pair<int,int>(97,1));		//a
@@ -221,7 +221,7 @@ void Util::make_index_letter(unordered_map<int, int>* index_letter)
 }
 
 // função que converte os caracteres de string nos indexes pré estabelecidos na função make_index_letter
-vector<int> Util::convert_string_to_indexes(string a, unordered_map<int, int>* index_letter)
+vector<int> Util::convert_string_to_indexes(string a, map<int, int>* index_letter)
 {
     vector<int> v;
 
@@ -241,7 +241,7 @@ vector<int> Util::convert_string_to_indexes(string a, unordered_map<int, int>* i
 
 
 //função que procura uma sbstring dentro de uma string, retornando o número da posição em que a substring inicia dentro da string
-int Util::search_in_string(string s1, string s2, unordered_map<int, int>* index_letter)
+int Util::search_in_string(string s1, string s2, map<int, int>* index_letter)
 {	
 	if(s2.size() != 0)
 	{

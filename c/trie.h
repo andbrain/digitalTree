@@ -18,7 +18,7 @@
 #include <xlocale.h>
 #include <stdio.h>
 #include <fstream>
-#include <unordered_map>
+#include <map>
 #include <list>
 #include <sstream>
 #include "nodes.h"
@@ -38,7 +38,7 @@ public:
 	bool UpdateElement(int id, string newElem);
 
 private:
-	unordered_map<int, int> index_letter; //hash map que guarda o dicionario de indexes dos caracteres, onde
+	map<int, int> index_letter; //hash map que guarda o dicionario de indexes dos caracteres, onde
     //<inteiro referende ao caractere, index do caractere referente de acordo com nosso dicionario>
 	Telement *Element;
 	element_words *ElementWords;
@@ -46,8 +46,8 @@ private:
 	element_words elements_found[600000];
 	int n_elements_found = 0;
 	Util util;
-	unordered_map<int, Telement> elements; // hash map que guarda os elements
-	unordered_map<nodePoint*, list<element_words> > word_lists_element; // hash map que guarda os ponteiros dos elementos de acordo com as palavras chave da trie
+	map<int, Telement> elements; // hash map que guarda os elements
+	map<nodePoint*, list<element_words> > word_lists_element; // hash map que guarda os ponteiros dos elementos de acordo com as palavras chave da trie
 
 
 	//methods

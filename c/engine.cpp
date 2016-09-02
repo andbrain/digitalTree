@@ -25,3 +25,8 @@ vector<int> Engine::process(string query,  int qtd_result)
 
 	return vec;
 }
+
+bool Engine::insert(int id, string element)
+{
+	return t->InsertElement(id,element);
+}

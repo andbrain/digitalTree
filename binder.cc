@@ -5,6 +5,11 @@
 
 static Engine eng;
 
+bool insertElement(int id, std::string element)
+{
+  return eng.insert(id, element);
+}
+
 std::vector<int> ProcessQuery(std::string query, int qtd)
 {
   std::vector<int> vec;
@@ -20,16 +25,32 @@ void Initializer(string filepath)
 }
 
 namespace nodeNM {
-  using v8::FunctionCallbackInfo;
-  using v8::Isolate;
-  using v8::Local;
-  using v8::Object;
-  using v8::String;
-  using v8::Value;
+  using namespace v8;
+  
+  void Insert(const FunctionCallbackInfo<Value>& args) {
+    Isolate* isolate = args.GetIsolate();
 
-  using v8::Number;
-  using v8::Array;
-  using v8::Exception;
+    // Make sure there is an argument
+    if(args.Length() != 2){
+      isolate->ThrowException(Exception::TypeError(String::NewFromUtf8(isolate, "Need an argument!")));
+      return;
+    }
+
+    if( args[0]->IsUndefined()){
+      isolate->ThrowException(Exception::TypeError(String::NewFromUtf8(isolate, "Need an argument!")));
+      return;
+    } 
+
+    int id = args[0]->NumberValue();
+    v8::String::Utf8Value nameFromArgs(args[1]->ToString());
+    std::string element = std::string(*nameFromArgs);
+    bool result = insertElement(id, element);
+    std::cout << "Result of insert:" << result << std::endl;
+
+    Local<Boolean> res = Boolean::New(isolate, !result);
+    args.GetReturnValue().Set(res);
+  }
+
 
   void Create(const FunctionCallbackInfo<Value>& args) {
     Isolate* isolate = args.GetIsolate();
@@ -42,6 +63,7 @@ namespace nodeNM {
     v8::String::Utf8Value nameFromArgs(args[0]->ToString());
     std::string basefile = std::string(*nameFromArgs);
     Initializer(basefile);
+
     args.GetReturnValue();
   }
 
@@ -75,6 +97,7 @@ namespace nodeNM {
   void init(Local<Object> exports) {
     NODE_SET_METHOD(exports, "create", Create);
     NODE_SET_METHOD(exports, "process", Process);
+    NODE_SET_METHOD(exports, "insert", Insert);
   }
 
   NODE_MODULE(addon, init)

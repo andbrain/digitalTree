@@ -11,3 +11,4 @@ var resource = '/search';
 var PATH = prefix + resource;
 
 server.get({path: PATH, version: VERSION}, resources.search.list);
+server.post({path: PATH, version: VERSION}, resources.search.add);
